@@ -106,7 +106,61 @@ def main():
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
-    
+    if page_selection == "Welcome":
+        st.subheader("==========================================================")
+        st.markdown("Welcome To Our Movie Review App")
+        st.subheader("==========================================================")
+        st.image('resources/imgs/giphy.gif', width=900)
+        st.image('resources/imgs/Movie-Show-Gif-960.gif')
+
+    if page_selection == "About The App":
+        st.title("About the App")
+        st.markdown("Are you a movie lover? Are you tired of wasting your time watching tons of trailers and ending up not watching their movies? Are you tired of finishing your popcorns before you find the right movie? That has come to an end!!")
+        st.image(["resources/imgs/tired1.jpg", "resources/imgs/tired22.jpg"],width=300)
+        st.markdown("Then we have got the right App for you.")
+        st.subheader("How The App Works")
+        st.markdown("The Movie Recommender App filters or predicts your preferences based on your favourite or watched movie selections. With just a few clicks, you will select three of your most favourite movies from thousands of movies on the app and you will get top 10 movies you are most likely to enjoy. You have an option to view some data visualizations including word clouds that show the most popular words that appear in movie titles and plots on the most popular genres. The app also contains a contact page, where users of the app can rate our app and give feedback and suggestions. Links to movie sites are also included, so the user has quick and easy to access the recommended movies.")
+        st.subheader("Data Description")
+        st.markdown("The dataset used for the movie recommender app consists of several million 5-star ratings obtained from users of the online MovieLens movie recommendation service. The data for the MovieLens dataset is maintained by the GroupLens research group in the Department of Computer Science and Engineering at the University of Minnesota. Additional movie content data was legally scraped from IMDB.")
+
+    if page_selection == "About Us":
+        st.markdown("<h1 style='text-align: center; color: blue;'>About Us</h1>", unsafe_allow_html=True)
+        st.markdown("")
+        st.info("1. Palesa Hlungwani")
+        st.image('resources/imgs/Palesa.jpg')
+        #st.image('resources/imgs/')
+        st.markdown("* Github account:PTStace")
+        st.markdown("* Kaggle account:palesa_hlungwani")
+        st.markdown("* email:ptshlungwani@gmail.com")
+        st.markdown("")
+        st.info("2. Orline Sorelle Ketcha")
+        st.image('resources/imgs/Orline.jpg')
+        #st.image('resources/imgs/')
+        st.markdown("* Github account:OrlineSorel")
+        st.markdown("* Kaggle account:Sorelle94")
+        st.markdown("* email:sorelleketcha@gmail.com")
+        st.markdown("")
+        st.info("3. Thiyasizwe Kubeka")
+        st.image('resources/imgs/Thiya.jpg')
+        #st.image('resources/imgs/')
+        st.markdown("* Github account:thiyasizwe_kubeka")
+        st.markdown("* Kaggle account:Thiyasizwa_kubeka")
+        st.markdown("* email:thiyasizwekubeka@gmail.com")
+        st.markdown("")
+        st.info("4. Katleho Mokhele")
+        #st.image('resources/imgs/')
+        st.image('resources/imgs/Katleho.jpg')
+        st.markdown("* Github account:Katness AI")
+        st.markdown("* Kaggle account:Katleho Mokhele")
+        st.markdown("* email:katleho@southatlantic.net")
+        st.markdown("")
+        st.info("5. Mfumo Baloyi")
+        st.image('resources/imgs/Mfumo.jpg')
+        #st.image('resources/imgs/')
+        st.markdown("* Github account:Mfumoe")
+        st.markdown("* Kaggle account:Mfumoe")
+        st.markdown("* email:www.baloyimfumoe@gmail.com")
+
 
 
 

@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Welcome","About The App","Recommender System","Solution Overview","Contact Us","About Us"]
+    page_options = ["Welcome","About The App","EDA","Recommender System","Solution Overview","Contact Us","About Us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -102,7 +102,10 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
+        st.markdown("**Content-based filtering**: uses item features to recommend other items similar to what the user likes, based on their previous actions or explicit feedback")
+        st.markdown("**Collaborative filtering**: builds a model from your past behavior (i.e. movies watched or selected by the you) as well as similar decisions made by other users")
         st.write("Describe your winning approach on this page")
+
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
@@ -123,6 +126,27 @@ def main():
         st.subheader("Data Description")
         st.markdown("The dataset used for the movie recommender app consists of several million 5-star ratings obtained from users of the online MovieLens movie recommendation service. The data for the MovieLens dataset is maintained by the GroupLens research group in the Department of Computer Science and Engineering at the University of Minnesota. Additional movie content data was legally scraped from IMDB.")
 
+    if page_selection == "EDA":
+        st.title("Exploratory Data Analysis")
+        st.image(('resources/imgs/counts_graph.png'), use_column_width=True)
+        st.image(('resources/imgs/ratings_graph.png'), use_column_width=True)
+        st.image(('resources/imgs/counts_ratings.png'), use_column_width=True)
+
+    if page_selection == "Contact Us":
+        st.title("Get in touch with us")
+        st.markdown('''<span style="color:blue"> **Help us improve this app by rating it. Tell us how to give you a better user experience.** </span>''', unsafe_allow_html=True)
+        @st.cache(allow_output_mutation=True)
+        def get_data():
+            return []
+        name = st.text_input("User name")
+        inputs = st.text_input("Let us improve your user experience!!!")
+        rate = st.slider("Rate us", 0, 5)
+        if st.button("Submit"):
+            get_data().append({"User name": name, "Suggestion": inputs,"rating":rate})
+        st.markdown('''<span style="color:blue"> **What other users said:** </span>''', unsafe_allow_html=True)
+        st.write(pd.DataFrame(get_data()))
+        st.markdown('''<span style="color:blue"> **For any questions contact us here:** </span>''', unsafe_allow_html=True)
+       
     if page_selection == "About Us":
         st.markdown("<h1 style='text-align: center; color: blue;'>About Us</h1>", unsafe_allow_html=True)
         st.markdown("")

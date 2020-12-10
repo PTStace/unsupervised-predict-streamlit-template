@@ -131,9 +131,14 @@ def main():
 
     if page_selection == "EDA":
         st.title("Exploratory Data Analysis")
-        st.image(('resources/imgs/counts_graph.png'), use_column_width=True)
-        st.image(('resources/imgs/ratings_graph.png'), use_column_width=True)
-        st.image(('resources/imgs/counts_ratings.png'), use_column_width=True)
+        st.image(('resources/imgs/all time popular movies by ratings.png'), use_column_width=True)
+        st.image(('resources/imgs/total movies released per year.png'), use_column_width=True)
+        st.image(('resources/imgs/popular movie genre.png'), use_column_width=True)
+        st.image(('resources/imgs/most popular actors.png'), use_column_width=True)
+        st.image(('resources/imgs/rating per distribution.png'), use_column_width=True)
+        st.image(('resources/imgs/popular cast wordcloud.png'), use_column_width=True)
+        st.image(('resources/imgs/popular movie directors.png'), use_column_width=True)
+        st.image(('resources/imgs/average runtime per genre.png'), use_column_width=True)
 
     if page_selection == "Contact Us":
         st.title("Get in touch with us")

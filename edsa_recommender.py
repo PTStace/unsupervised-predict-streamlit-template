@@ -103,7 +103,10 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.markdown("**Content-based filtering**: uses item features to recommend other items similar to what the user likes, based on their previous actions or explicit feedback")
+        st.image(('resources/imgs/content-based.png'), use_column_width=True)
         st.markdown("**Collaborative filtering**: builds a model from your past behavior (i.e. movies watched or selected by the you) as well as similar decisions made by other users")
+        st.image(('resources/imgs/collaborative filtering.png'), use_column_width=True)
+        st.markdown("<h1 style='text-align: left; color: black;'>Content-based filtering: uses item features to recommend other items similar to what the user likes, based on their previous actions or explicit feedback</h1>", unsafe_allow_html=True)
         st.write("Describe your winning approach on this page")
 
 

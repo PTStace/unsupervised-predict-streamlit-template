@@ -111,6 +111,7 @@ def main():
         st.write("Describe your winning approach on this page")
 
     if page_selection == "Search for a movie":
+        st.image(('resources/imgs/avengers-infinity-war-endgame.jpg'), use_column_width=True)
         st.title("Search for Movies")
         st.markdown('Please Refer to the About Machine Learning Page to learn more about the techniques used to recommend movies. If you decide not to use the recommender systems you can use this page to filter movies based on the rating of the movie , the year in which the movie was released and the genre of the movies. After you change the filter you will be left with movies that are specific to that filter used. Then when you scroll down you will see the movie name and the link to a youtube trailer of that movie. When you click the link ,you will see a page on youtube for that specific movie and you can watch the trailer and see if you like it. This is an alternative method to you if you are not satisfied with the recommender engine . Enjoy! ', unsafe_allow_html=True)
         # Movies
@@ -163,6 +164,33 @@ def main():
         movie_data = movie_data.drop(['movieId','timestamp','userId'], axis = 1)
         year_of_movie_release = movie_data['year'].sort_values(ascending=False).unique()
         release_year = st.selectbox('Year', year_of_movie_release)
+
+        movie = movie_data[(movie_data.rating == movie_rating)&(movie_data.genres == title)&(movie_data.year == release_year)]
+        df = movie.drop_duplicates(subset = ["title"])
+        if len(df) !=0:
+            st.write(df)
+        if len(df) ==0:
+            st.write('We have no movies for that rating!')        
+        def youtube_link(title):
+    
+            """This function takes in the title of a movie and returns a Search query link to youtube
+    
+            INPUT: ('Avengers age of ultron')
+            -----------
+    
+            OUTPUT: https://www.youtube.com/results?search_query=The+little+Mermaid&page=1
+            ----------
+            """
+            title = title.replace(' ','+')
+            base = "https://www.youtube.com/results?search_query="
+            q = title
+            page = "&page=1"
+            URL = base + q + page
+            return URL            
+        if len(df) !=0:           
+            for _, row in df.iterrows():
+                st.write(row['title'])
+                st.write(youtube_link(title = row['title']))
 
 
 

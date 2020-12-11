@@ -200,7 +200,7 @@ def main():
         st.markdown('''<span style="color:black"> **Welcome To Our Movie Review App.** </span>''', unsafe_allow_html=True)
         st.subheader("==========================================================")
         st.image('resources/imgs/giphy.gif', use_column_width=True)
-        st.image('resources/imgs/Movie-Show-GIF-960.gif.crdownload', use_column_width=True)
+        st.image('resources/imgs/Movie-Show-GIF-960.gif', use_column_width=True)
 
     if page_selection == "About The App":
         st.title("About the App")

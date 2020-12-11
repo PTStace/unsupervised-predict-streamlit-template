@@ -46,7 +46,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Welcome","About The App","EDA","Search for a movie","Recommender System","Solution Overview","Contact Us","About Us"]
+    page_options = ["Welcome","About The App","EDA","Recommender System","Search for a movie","Solution Overview","Contact Us","About Us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -103,16 +103,15 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.markdown("**Content-based filtering**: uses item features to recommend other items similar to what the user likes, based on their previous actions or explicit feedback")
-        st.image(('resources/imgs/content-based.png'), use_column_width=True)
-        st.markdown("**Collaborative filtering**: builds a model from your past behavior (i.e. movies watched or selected by the you) as well as similar decisions made by other users")
-        st.image(('resources/imgs/collaborative filtering.png'), use_column_width=True)
         st.markdown("<h1 style='text-align: left; color: black;'>Content-based filtering: uses item features to recommend other items similar to what the user likes, based on their previous actions or explicit feedback</h1>", unsafe_allow_html=True)
+        st.image(('resources/imgs/content-based.png'), use_column_width=True)
+        st.markdown("<h1 style='text-align: left; color: black;'>Collaborative filtering: builds a model from your past behavior (i.e. movies watched or selected by the you) as well as similar decisions made by other users</h1>", unsafe_allow_html=True)
+        st.image(('resources/imgs/collaborative filtering.png'), use_column_width=True)
         st.write("Describe your winning approach on this page")
 
     if page_selection == "Search for a movie":
-        st.image(('resources/imgs/avengers-infinity-war-endgame.jpg'), use_column_width=True)
         st.title("Search for Movies")
+        st.image(('resources/imgs/franchises.jpg'), use_column_width=True)
         st.markdown('Please Refer to the About Machine Learning Page to learn more about the techniques used to recommend movies. If you decide not to use the recommender systems you can use this page to filter movies based on the rating of the movie , the year in which the movie was released and the genre of the movies. After you change the filter you will be left with movies that are specific to that filter used. Then when you scroll down you will see the movie name and the link to a youtube trailer of that movie. When you click the link ,you will see a page on youtube for that specific movie and you can watch the trailer and see if you like it. This is an alternative method to you if you are not satisfied with the recommender engine . Enjoy! ', unsafe_allow_html=True)
         # Movies
         df = pd.read_csv('resources/data/movies.csv')

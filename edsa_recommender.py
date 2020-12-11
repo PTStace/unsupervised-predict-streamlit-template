@@ -39,6 +39,7 @@ from recommenders.content_based import content_model
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
+rating_m = pd.read_csv('resources/data/ratings.csv')
 
 # App declaration
 def main():
@@ -110,7 +111,58 @@ def main():
         st.write("Describe your winning approach on this page")
 
     if page_selection == "Search for a movie":
-        st.title("What would you like to watch")
+        st.title("Search for Movies")
+        st.markdown('Please Refer to the About Machine Learning Page to learn more about the techniques used to recommend movies. If you decide not to use the recommender systems you can use this page to filter movies based on the rating of the movie , the year in which the movie was released and the genre of the movies. After you change the filter you will be left with movies that are specific to that filter used. Then when you scroll down you will see the movie name and the link to a youtube trailer of that movie. When you click the link ,you will see a page on youtube for that specific movie and you can watch the trailer and see if you like it. This is an alternative method to you if you are not satisfied with the recommender engine . Enjoy! ', unsafe_allow_html=True)
+        # Movies
+        df = pd.read_csv('resources/data/movies.csv')
+
+        
+        def explode(df, lst_cols, fill_value='', preserve_index=False):
+            import numpy as np
+             # make sure `lst_cols` is list-alike
+            if (lst_cols is not None
+                    and len(lst_cols) > 0
+                    and not isinstance(lst_cols, (list, tuple, np.ndarray, pd.Series))):
+                lst_cols = [lst_cols]
+            # all columns except `lst_cols`
+            idx_cols = df.columns.difference(lst_cols)
+            # calculate lengths of lists
+            lens = df[lst_cols[0]].str.len()
+            # preserve original index values    
+            idx = np.repeat(df.index.values, lens)
+            # create "exploded" DF
+            res = (pd.DataFrame({
+                        col:np.repeat(df[col].values, lens)
+                        for col in idx_cols},
+                        index=idx)
+                    .assign(**{col:np.concatenate(df.loc[lens>0, col].values)
+                            for col in lst_cols}))
+            # append those rows that have empty lists
+            if (lens == 0).any():
+                # at least one list in cells is empty
+                res = (res.append(df.loc[lens==0, idx_cols], sort=False)
+                            .fillna(fill_value))
+            # revert the original index order
+            res = res.sort_index()   
+            # reset index if requested
+            if not preserve_index:        
+                res = res.reset_index(drop=True)
+            return res 
+        movie_data = pd.merge(rating_m, df, on='movieId')
+        movie_data['year'] = movie_data.title.str.extract('(\(\d\d\d\d\))',expand=False)
+        #Removing the parentheses
+        movie_data['year'] = movie_data.year.str.extract('(\d\d\d\d)',expand=False)
+
+        movie_data.genres = movie_data.genres.str.split('|')
+        movie_rating = st.sidebar.number_input("Pick a rating ",0.5,5.0, step=0.5)
+
+        movie_data = explode(movie_data, ['genres'])
+        movie_title = movie_data['genres'].unique()
+        title = st.selectbox('Genre', movie_title)
+        movie_data['year'].dropna(inplace = True)
+        movie_data = movie_data.drop(['movieId','timestamp','userId'], axis = 1)
+        year_of_movie_release = movie_data['year'].sort_values(ascending=False).unique()
+        release_year = st.selectbox('Year', year_of_movie_release)
 
 
 
@@ -136,29 +188,42 @@ def main():
     if page_selection == "EDA":
         st.title("Exploratory Data Analysis")
         st.subheader("All Time Popular Movies By Ratings Insights")
-        st.markdown("The graph shows all the movies that have been rated the most for all movies in the dataset")
+        st.markdown("The graph shows all the movies that have been rated the most for all movies in the dataset. The most popular can be seen as a 1994 movie Shawshank Redemption with a rating count of more than 30 thousand.,")
         st.image(('resources/imgs/all time popular movies by ratings.png'), use_column_width=True)
         st.subheader("Released Movies Per Year Insights")
-        st.markdown("The graph shows the number of movies that have been released each year from 1971 to 2017")
+        st.markdown("The graph shows the number of movies that have been released each year from 1971 to 2017. It is safe to note that there has been an exponential increase in the number of movies released each year. we can go as far as to say that movies released in the 2010s are about 4 times the number of those that were released in the 1070s.")
         st.image(('resources/imgs/total movies released per year.png'), use_column_width=True)
         st.subheader("Popular Genres By Rating Insights")
-        st.markdown("The treemap dipicts the genres that are most popular to the least popular in terms of ratings")
+        st.markdown("The treemap depicts the genres that are most popular to the least popular in terms of ratings. From the treemap it can be seen that the most rated genre happens to be Drama, followed by Comedy with IMAX the least rated.")
         st.image(('resources/imgs/popular genres.png'), use_column_width=True)
         st.subheader("Percentage Of Users Per Ratings Insights")
-        st.markdown("The graphs shows the total number of user percentage based on their ratings")
+        st.markdown("The graphs shows the total number of user percentage based on their ratings. Most users rated movies with a rating of 4.0(26.53%)")
         st.image(('resources/imgs/percentage of users per rating.png'), use_column_width=True)
         st.subheader("Popular Actors/Actresses Insights")
-        st.markdown("The graph shows who the most popular actors/actresses appearing in the movies are and the number of movies they appear in.")
+        st.markdown("The graph shows who the most popular actors/actresses appearing in the movies are and the number of movies they appear in. The actor Samuel L Jackson is the most popular, appearing in more than 80 movies. Actress Julianne Moore is the most popular amoung the actresses.")
         st.image(('resources/imgs/popular actors.png'), use_column_width=True)
-        st.subheader("")
+        st.subheader("Rating Distribution")
+        st.markdown("This graph shows how ratings are distributed. Just like in, Percentage of Users Per Ratings Insights, most movies have a rating of 4.0")
         st.image(('resources/imgs/rating distribution.png'), use_column_width=True)
+        st.subheader("Movie Runtime Ditribution")
+        st.markdown("Below we can a see a distribution of movie runtime. Majority of the movies have a 100 minutes runtime.")
         st.image(('resources/imgs/runtime distribution.png'), use_column_width=True)
+        st.subheader("Popular Movies Wordcloud")
+        st.markdown("The wordcloud below shows the letters appearing the most in the movie titles. Love, Girl, Man and Night are words that appear the biggest. This means that more movies have such words in their title. It makes sense that these words appear the most as we have more movies in the drama, comedy and romance genre.")
         st.image(('resources/imgs/most popular movies wordcloud.png'), use_column_width=True)
+        st.subheader("Popular Movie Directors")
+        st.markdown("The graph below shows the most popular movie directors. It makes sense for Woody Allen to be the most popular director as the first movie he directed was in 1965 and since then he has directed about 50 movies with the latest released in 2020. Woody has also been acting since 1965 to date, he has directed 3 short films and directed about 12 tv shows.")
         st.image(('resources/imgs/popular movie directors.png'), use_column_width=True)
+        st.subheader("Average Budget Per Genre")
+        st.markdown("The graph below shows the average budget used for movies in each genre. The War genre seems to have the highest average budget, with the Documentary genre having the least budget.")
         st.image(('resources/imgs/average budget per genre.png'), use_column_width=True)
+        st.subheader("Average Runtime Per Genre")
+        st.markdown("Western genre has the highest average movie runtime at about 120 minutes. Animation genre has the least average runtime at about 76-77 minutes.")
         st.image(('resources/imgs/average runtime per genre.png'), use_column_width=True)
+        st.subheader("Top 20 Popular Movies From 2010")
+        st.markdown("The 2014 movie Intersteller had the highest ratings. The movie only had a budget of $165 million but went to make $696.3 million from the box office. The movie also bagged 6 awards including an Academy award for best visual effects.")
         st.image(('resources/imgs/top 20 popular movies by ratings from 2010.png'), use_column_width=True)
-        st.image(('resources/imgs/popular cast.png'), use_column_width=True)
+        
 
     if page_selection == "Contact Us":
         st.title("Get in touch with us")
@@ -210,7 +275,7 @@ def main():
         #st.image(Image.open('resources/imgs/pro wordcloud.jpeg'), caption=None, use_column_width=True)
         st.image(('resources/imgs/Mfumo.jpg'), use_column_width=True)
         #st.image('resources/imgs/')
-        st.markdown("* Github account:Mfumoe")
+        st.markdown("* Github account:MfumoB")
         st.markdown("* Kaggle account:Mfumoe")
         st.markdown("* email:www.baloyimfumoe@gmail.com")
 

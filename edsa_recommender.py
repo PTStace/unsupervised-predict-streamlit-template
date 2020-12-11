@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Welcome","About The App","EDA","Recommender System","Solution Overview","Contact Us","About Us"]
+    page_options = ["Welcome","About The App","EDA","Search for a movie","Recommender System","Solution Overview","Contact Us","About Us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -109,15 +109,19 @@ def main():
         st.markdown("<h1 style='text-align: left; color: black;'>Content-based filtering: uses item features to recommend other items similar to what the user likes, based on their previous actions or explicit feedback</h1>", unsafe_allow_html=True)
         st.write("Describe your winning approach on this page")
 
+    if page_selection == "Search for a movie":
+        st.title("What would you like to watch")
+
+
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
     if page_selection == "Welcome":
         st.subheader("==========================================================")
-        st.markdown("Welcome To Our Movie Review App")
+        st.markdown('''<span style="color:black"> **Welcome To Our Movie Review App.** </span>''', unsafe_allow_html=True)
         st.subheader("==========================================================")
-        st.image('resources/imgs/giphy.gif', width=900)
-        st.image('resources/imgs/Movie-Show-Gif-960.gif')
+        st.image('resources/imgs/giphy.gif', use_column_width=True)
+        st.image('resources/imgs/Movie-Show-Gif-960.gif', use_column_width=True)
 
     if page_selection == "About The App":
         st.title("About the App")
@@ -131,14 +135,30 @@ def main():
 
     if page_selection == "EDA":
         st.title("Exploratory Data Analysis")
+        st.subheader("All Time Popular Movies By Ratings Insights")
+        st.markdown("The graph shows all the movies that have been rated the most for all movies in the dataset")
         st.image(('resources/imgs/all time popular movies by ratings.png'), use_column_width=True)
+        st.subheader("Released Movies Per Year Insights")
+        st.markdown("The graph shows the number of movies that have been released each year from 1971 to 2017")
         st.image(('resources/imgs/total movies released per year.png'), use_column_width=True)
-        st.image(('resources/imgs/popular movie genre.png'), use_column_width=True)
-        st.image(('resources/imgs/most popular actors.png'), use_column_width=True)
-        st.image(('resources/imgs/rating per distribution.png'), use_column_width=True)
-        st.image(('resources/imgs/popular cast wordcloud.png'), use_column_width=True)
+        st.subheader("Popular Genres By Rating Insights")
+        st.markdown("The treemap dipicts the genres that are most popular to the least popular in terms of ratings")
+        st.image(('resources/imgs/popular genres.png'), use_column_width=True)
+        st.subheader("Percentage Of Users Per Ratings Insights")
+        st.markdown("The graphs shows the total number of user percentage based on their ratings")
+        st.image(('resources/imgs/percentage of users per rating.png'), use_column_width=True)
+        st.subheader("Popular Actors/Actresses Insights")
+        st.markdown("The graph shows who the most popular actors/actresses appearing in the movies are and the number of movies they appear in.")
+        st.image(('resources/imgs/popular actors.png'), use_column_width=True)
+        st.subheader("")
+        st.image(('resources/imgs/rating distribution.png'), use_column_width=True)
+        st.image(('resources/imgs/runtime distribution.png'), use_column_width=True)
+        st.image(('resources/imgs/most popular movies wordcloud.png'), use_column_width=True)
         st.image(('resources/imgs/popular movie directors.png'), use_column_width=True)
+        st.image(('resources/imgs/average budget per genre.png'), use_column_width=True)
         st.image(('resources/imgs/average runtime per genre.png'), use_column_width=True)
+        st.image(('resources/imgs/top 20 popular movies by ratings from 2010.png'), use_column_width=True)
+        st.image(('resources/imgs/popular cast.png'), use_column_width=True)
 
     if page_selection == "Contact Us":
         st.title("Get in touch with us")

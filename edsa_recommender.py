@@ -266,6 +266,8 @@ def main():
         st.markdown('''<span style="color:blue"> **What other users said:** </span>''', unsafe_allow_html=True)
         st.write(pd.DataFrame(get_data()))
         st.markdown('''<span style="color:blue"> **For any questions contact us here:** </span>''', unsafe_allow_html=True)
+        st.image(('resources/imgs/our contact2.PNG'), use_column_width=True)
+            #pass
        
     if page_selection == "About Us":
         st.markdown("<h1 style='text-align: center; color: blue;'>About Us</h1>", unsafe_allow_html=True)

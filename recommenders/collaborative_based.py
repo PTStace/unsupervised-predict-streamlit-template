@@ -141,43 +141,6 @@ def collab_model(movie_list,top_n=10):
 
     """
 
-    #select movie 1
-    if movie_list[0] not in movie_sim_df.columns:
-        movie1 = pd.DataFrame()
-    else:
-        movie1 = pd.DataFrame(movie_sim_df[movie_list[0]])
-        movie1= movie1.reset_index()
-        movie1['similarity']= movie1[movie_list[0]]
-        movie1=pd.DataFrame(movie1,columns=['title','similarity'])
-    
-     #select movie 2
-    if movie_list[1] not in movie_sim_df.columns:
-        movie2= pd.DataFrame()
-    else:
-        movie2 = pd.DataFrame(movie_sim_df[movie_list[1]]) 
-        movie2= movie2.reset_index()
-        movie2['similarity']= movie2[movie_list[1]]
-        movie2=pd.DataFrame(movie2,columns=['title','similarity'])
-
-     #select movie 3
-    if movie_list[2] not in movie_sim_df.columns:
-        movie3= pd.DataFrame()
-    else:
-        movie3 = pd.DataFrame(movie_sim_df[movie_list[2]])
-        movie3= movie3.reset_index()
-        movie3['similarity']= movie3[movie_list[2]]
-        movie3=pd.DataFrame(movie3,columns=['title','similarity'])
-
-    finalmovies= pd.concat([movie1,movie2,movie3])
-    if finalmovies.empty:
-        reco=rate.groupby('title').mean().sort_values(by='rating', ascending=False).index[:top_n].to_list()
-        recommended_movies=random.sample(reco, top_n)
-    else:
-        recommended_movies=finalmovies.sort_values('similarity',ascending=False)
-        recommended_movies = recommended_movies[~(recommended_movies['title'].isin(movie_list))]
-        recommended_movies=list(recommended_movies[0:top_n]['title'])
-    return recommended_movies
-
     #indices = pd.Series(movies_df['title'])
     #movie_ids = pred_movies(movie_list)
     #df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]

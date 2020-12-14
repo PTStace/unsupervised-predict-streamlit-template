@@ -205,7 +205,7 @@ def main():
     if page_selection == "About The App":
         st.title("About the App")
         st.markdown("Are you a movie lover? Are you tired of wasting your time watching tons of trailers and ending up not watching their movies? Are you tired of finishing your popcorns before you find the right movie? That has come to an end!!")
-        st.image(["resources/imgs/Tired 1.1.gif", "resources/imgs/Tired 1.2.jpg"],width=300)
+        st.image(["resources/imgs/Tired 1.1.gif", "resources/imgs/Tired 1.2.jpg"],use_column_width=True)
         st.markdown("Then we have got the right App for you.")
         st.subheader("How The App Works")
         st.markdown("The Movie Recommender App filters or predicts your preferences based on your favourite or watched movie selections. With just a few clicks, you will select three of your most favourite movies from thousands of movies on the app and you will get top 10 movies you are most likely to enjoy. You have an option to view some data visualizations including word clouds that show the most popular words that appear in movie titles and plots on the most popular genres. The app also contains a contact page, where users of the app can rate our app and give feedback and suggestions. Links to movie sites are also included, so the user has quick and easy to access the recommended movies.")
